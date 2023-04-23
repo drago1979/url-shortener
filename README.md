@@ -16,7 +16,7 @@ Web interface:
 
 1. Clone the project using the following link:
 ```
-https://github.com/drago1979/books.git
+https://github.com/drago1979/url-shortener.git
 
 ```
 2. Create .env file in project directory and copy content from .env.example file.  Add valid data (DB credentials etc.) to .env.  
