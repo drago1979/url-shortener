@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Url;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Url\UrlStoreRequest;
+use App\Mail\UrlShortCreated;
 use App\Models\Url;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Mail;
 
 class UrlController extends Controller
 {
@@ -26,10 +28,14 @@ class UrlController extends Controller
      */
     public function store(UrlStoreRequest $request): RedirectResponse
     {
-        $urlToStore = $request->validated();
+        $inputData = $request->validated();
 
-        if (null === $url = Url::where('original_url', $urlToStore)->first()) {
-            $url = Url::create($urlToStore);
+        if (null === $url = Url::where('original_url', $inputData['original_url'])->first()) {
+            $url = Url::create($inputData);
+        }
+
+        if (isset($inputData['email'])) {
+            Mail::to($inputData['email'])->send(new UrlShortCreated($url));
         }
 
         return redirect(route('url_show', $url->id));
@@ -48,11 +54,20 @@ class UrlController extends Controller
      */
     public function redirect($randomValue): RedirectResponse
     {
-        $url = Url::where('random_value', $randomValue)->firstOrFail();
+        $visitedUrls = explode(',', request()->cookie('visited_urls'));
+        $url         = Url::where('random_value', $randomValue)->firstOrFail();
+
+        if (!in_array($url->id, $visitedUrls)) {
+            $url->unique_visits = ++$url->unique_visits;
+
+            $visitedUrls[] = $url->id;
+        }
 
         $url->total_visits = ++$url->total_visits;
         $url->save();
 
-        return redirect($url->original_url);
+        $cookieContent = implode(',', $visitedUrls);
+
+        return redirect($url->original_url)->cookie('visited_urls', $cookieContent, 5);
     }
 }

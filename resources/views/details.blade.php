@@ -88,6 +88,11 @@
             <div class="title">Total visits</div>
             <div class="value">{{ $url->total_visits }}</div>
         </div>
+
+        <div class="card">
+            <div class="title">Unique visits</div>
+            <div class="value">{{ $url->unique_visits }}</div>
+        </div>
     </div>
 
     <h2>Check the URL</h2>

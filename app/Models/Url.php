@@ -15,7 +15,8 @@ class Url extends Model
     protected $fillable = [
         'original_url',
         'random_value',
-        'total_visits'
+        'total_visits',
+        'unique_visits'
     ];
 
     protected $appends = ['short_url'];

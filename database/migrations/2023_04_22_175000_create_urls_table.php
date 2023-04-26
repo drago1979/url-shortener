@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
 
             $table->text('original_url')->unique()->index();
-            $table->char( 'random_value', 8)->unique()->index();
+            $table->char( 'random_value', 8)->collation('utf8_bin')->unique()->index();
             $table->integer('total_visits')->default(0);
+            $table->integer('unique_visits')->default(0);
 
             $table->timestamps();
         });

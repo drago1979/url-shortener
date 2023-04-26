@@ -34,6 +34,7 @@ class UrlStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'email' => ['nullable', 'email'],
             'original_url' => [
                 'required',
                 'url',

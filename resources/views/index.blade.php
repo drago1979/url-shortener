@@ -78,6 +78,10 @@
             <label>URL</label>
             <input type="text" name="original_url">
 
+
+            <label>Email address</label>
+            <input type="email" name="email">
+
         </div>
 
         <div class="form-group">
