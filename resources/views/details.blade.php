@@ -69,6 +69,7 @@
 </head>
 <body>
 <div class="container">
+
     <h1>Dashboard</h1>
 
     <div class="form-group">
@@ -95,8 +96,13 @@
         </div>
     </div>
 
-    <h2>Check the URL</h2>
-    <a href="{{ $url->short_url }}" target="_blank">Click here</a>
+    <a href="{{ $url->short_url }}" target="_blank" style="display: inline-block; margin-right: 30px">
+        <h2>Check the URL</h2>
+    </a>
+
+    <a href="{{ route('home') }}" style="display: inline-block">
+        <h2>Back to home page</h2>
+    </a>
 
 </div>
 </body>

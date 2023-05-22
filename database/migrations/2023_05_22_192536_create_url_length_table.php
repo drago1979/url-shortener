@@ -11,14 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('urls', function (Blueprint $table) {
+        Schema::create('url_length', function (Blueprint $table) {
             $table->id();
-
-            $table->text('original_url')->index();
-            $table->string( 'random_value')->collation('utf8_bin')->unique()->index();
-            $table->integer('total_visits')->default(0);
-            $table->integer('unique_visits')->default(0);
-
+            $table->unsignedTinyInteger('length');
             $table->timestamps();
         });
     }
@@ -28,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('urls');
+        Schema::dropIfExists('url_length');
     }
 };

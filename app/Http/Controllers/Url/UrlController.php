@@ -30,9 +30,7 @@ class UrlController extends Controller
     {
         $inputData = $request->validated();
 
-        if (null === $url = Url::where('original_url', $inputData['original_url'])->first()) {
-            $url = Url::create($inputData);
-        }
+        $url = Url::create($inputData);
 
         if (isset($inputData['email'])) {
             Mail::to($inputData['email'])->send(new UrlShortCreated($url));

@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::controller(UrlController::class)->group(function () {
-    Route::get('/', 'create');
+    Route::get('/', 'create')->name('home');
     Route::post('/', 'store')->name('url_store');
     Route::get('/urls/{url}', 'show')->name('url_show');
     Route::get('/{value}', 'redirect');
